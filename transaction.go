@@ -1,6 +1,8 @@
 package paystack
 
-type InitializeTransaction struct {
+import "net/http"
+
+type InitTrnx struct {
 	Amount            string   `json:"amount,omitempty"`
 	Email             string   `json:"email,omitempty"`
 	Currency          string   `json:"currency,omitempty"`
@@ -14,4 +16,8 @@ type InitializeTransaction struct {
 	Subaccount        string   `json:"subaccount,omitempty"`
 	TransactionCharge uint     `json:"transaction_charge,omitempty"`
 	Bearer            string   `json:"bearer,omitempty"`
+}
+
+func InitializeTransaction(client http.Header, trnx InitTrnx) {
+
 }
