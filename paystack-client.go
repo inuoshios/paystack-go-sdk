@@ -34,6 +34,49 @@ func NewClient(apiKey string) (*Config, error) {
 	return c, nil
 }
 
+// makeRequest function makes a request and send a response to the user
+func (c *Config) makeRequest(method, path string, body any) ([]byte, error) {
+	var buf io.ReadWriter
+	if body != nil {
+		buf = new(bytes.Buffer)
+		err := json.NewEncoder(buf).Encode(body)
+		if err != nil {
+			return nil, fmt.Errorf("%w", err)
+		}
+	}
+	parseUrl, err := c.baseUrl.Parse(baseUrl)
+	if err != nil {
+		return nil, fmt.Errorf("%w", err)
+	}
+
+	req, err := http.NewRequest(method, fmt.Sprintf(parseUrl.String()+"%s", path), buf)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request: %w", err)
+	}
+
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+c.ApiKey)
+
+	resp, err := c.Client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error getting a response: %w", err)
+	}
+
+	defer func() {
+		err := resp.Body.Close()
+		if err != nil {
+			return
+		}
+	}()
+
+	response, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("cannot read response from body: %w", err)
+	}
+
+	return response, nil
+}
+
 func httpClient() *http.Client {
 	var transport http.RoundTripper = &http.Transport{
 		MaxIdleConns:        100,
@@ -51,56 +94,4 @@ func httpClient() *http.Client {
 	}
 
 	return client
-}
-
-func (c *Config) MakeRequest(method, path string, body any) error {
-	var buf io.ReadWriter
-	if body != nil {
-		buf = new(bytes.Buffer)
-		err := json.NewEncoder(buf).Encode(body)
-		if err != nil {
-			return fmt.Errorf("%w", err)
-		}
-	}
-	parseUrl, err := c.baseUrl.Parse(baseUrl)
-	if err != nil {
-		return fmt.Errorf("%w", err)
-	}
-
-	req, err := http.NewRequest(method, parseUrl.String(), buf)
-	if err != nil {
-		return fmt.Errorf("error creating request: %w", err)
-	}
-
-	if body != nil {
-		req.Header.Set("Content-Type", "application/json")
-	}
-
-	req.Header.Set("Authorization", "Bearer "+c.ApiKey)
-
-	resp, err := c.Client.Do(req)
-	if err != nil {
-		return fmt.Errorf("error getting a response: %w", err)
-	}
-
-	defer func() {
-		err := resp.Body.Close()
-		if err != nil {
-			return
-		}
-	}()
-
-	response, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("cannot read response from body: %w", err)
-	}
-
-	var r Response
-
-	if resp.StatusCode >= 400 {
-		json.Unmarshal(response, &r)
-	}
-
-	err = json.Unmarshal(response, &r)
-	return err
 }

@@ -1,6 +1,13 @@
 package paystack
 
-import "net/http"
+import (
+	"encoding/json"
+	"fmt"
+)
+
+var (
+	jsonResponse Response
+)
 
 type InitTrnx struct {
 	Amount            string   `json:"amount,omitempty"`
@@ -18,6 +25,27 @@ type InitTrnx struct {
 	Bearer            string   `json:"bearer,omitempty"`
 }
 
-func InitializeTransaction(client http.Header, trnx InitTrnx) {
+func (c *Config) InitializeTransaction(trnx *InitTrnx) (Response, error) {
+	path := "/transaction/initialize"
 
+	response, err := c.makeRequest("POST", path, trnx)
+	if err != nil {
+		_ = json.Unmarshal(response, &jsonResponse)
+		return jsonResponse, err
+	}
+
+	_ = json.Unmarshal(response, &jsonResponse)
+	return jsonResponse, nil
+}
+
+func (c *Config) VerifyTransaction(trnxReference string) (Response, error) {
+	path := fmt.Sprintf("/transaction/verify/%s", trnxReference)
+	response, err := c.makeRequest("GET", path, nil)
+	if err != nil {
+		_ = json.Unmarshal(response, &jsonResponse)
+		return jsonResponse, err
+	}
+
+	_ = json.Unmarshal(response, &jsonResponse)
+	return jsonResponse, err
 }
