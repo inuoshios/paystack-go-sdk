@@ -11,7 +11,7 @@ var (
 )
 
 func TestInitializeTransaction(t *testing.T) {
-	testCase := &InitTrnx{
+	testCase := &TransactionBody{
 		Amount:   "300",
 		Email:    "test@test.com",
 		Currency: "NGN",
