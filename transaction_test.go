@@ -40,3 +40,22 @@ func TestInitializeTransaction(t *testing.T) {
 		fmt.Println(string(data))
 	})
 }
+
+func TestVerifyTransaction(t *testing.T) {
+	transactionReference := "dm9jdrejvp"
+
+	t.Run("verify a transaction using the transaction reference", func(t *testing.T) {
+		client, err := NewClient(apiKey)
+		if err != nil {
+			t.Errorf("cannot initialize client %s", err)
+		}
+
+		verifyTransaction, err := client.VerifyTransaction(transactionReference)
+		if err != nil {
+			t.Error("cannot verify transaction")
+		}
+
+		data, _ := json.MarshalIndent(verifyTransaction, "", "    ")
+		fmt.Println(string(data))
+	})
+}
