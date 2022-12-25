@@ -23,6 +23,9 @@ type Config struct {
 	baseUrl *url.URL
 }
 
+// NewClient instantiates a new paystack client
+//
+//	client, err := paystack.NewClient(apiKey string)
 func NewClient(apiKey string) (*Config, error) {
 	parseURL, _ := url.Parse(baseUrl)
 	c := &Config{

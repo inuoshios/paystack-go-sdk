@@ -76,3 +76,55 @@ func TestListTransaction(t *testing.T) {
 		fmt.Println(string(data))
 	})
 }
+
+func TestFetchTransaction(t *testing.T) {
+	t.Run("gets details of a transactionn carried out on your integration", func(t *testing.T) {
+		client, err := NewClient(apiKey)
+		if err != nil {
+			t.Errorf("cannot initialize client %s", err)
+		}
+
+		fetchTrnx, err := client.FetchTransaction(2)
+		if err != nil {
+			t.Error("cannot fetch transactions")
+		}
+
+		data, _ := json.MarshalIndent(fetchTrnx, "", "    ")
+		fmt.Println(string(data))
+	})
+}
+
+func TestChargeAuthorization(t *testing.T) {
+	testCase := &ChargeAuthorizationBody{
+		Amount:            "20",
+		Email:             "test@test.com",
+		AuthorizationCode: "a random auth code",
+	}
+	t.Run("charge authorization", func(t *testing.T) {
+		client, err := NewClient(apiKey)
+		if err != nil {
+			t.Errorf("cannot initialize client %s", err)
+		}
+
+		if testCase.Amount == "" {
+			t.Error("please provide an amount")
+		}
+
+		if testCase.Email == "" {
+			t.Error("please provide an email")
+		}
+
+		if testCase.AuthorizationCode == "" {
+			t.Error("please provide an authorization code")
+		}
+
+		response, err := client.ChargeAuthorization(testCase)
+		if err != nil {
+			t.Error(err)
+		}
+
+		data, _ := json.MarshalIndent(response, "", "    ")
+		fmt.Println(string(data))
+
+	})
+}
