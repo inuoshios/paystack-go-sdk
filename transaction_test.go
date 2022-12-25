@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	apiKey = "sk_test_5dc4a0ff21ab4f7287efbc0951794af82a6a2b48"
+	ApiKey = "sk_test_5dc4a0ff21ab4f7287efbc0951794af82a6a2b48"
 )
 
 func TestInitializeTransaction(t *testing.T) {
@@ -18,7 +18,7 @@ func TestInitializeTransaction(t *testing.T) {
 	}
 
 	t.Run("initialize a new transaction", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -45,7 +45,7 @@ func TestVerifyTransaction(t *testing.T) {
 	transactionReference := "dm9jdrejvp"
 
 	t.Run("verify a transaction using the transaction reference", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -62,7 +62,7 @@ func TestVerifyTransaction(t *testing.T) {
 
 func TestListTransaction(t *testing.T) {
 	t.Run("list transaction", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -79,7 +79,7 @@ func TestListTransaction(t *testing.T) {
 
 func TestFetchTransaction(t *testing.T) {
 	t.Run("gets details of a transactionn carried out on your integration", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -101,7 +101,7 @@ func TestChargeAuthorization(t *testing.T) {
 		AuthorizationCode: "a random auth code",
 	}
 	t.Run("charge authorization", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -137,7 +137,7 @@ func TestCheckAuthorization(t *testing.T) {
 	}
 
 	t.Run("check authorization", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -167,7 +167,7 @@ func TestCheckAuthorization(t *testing.T) {
 func TestViewTransactionTimeLine(t *testing.T) {
 	t.Run("view transaction timeline", func(t *testing.T) {
 		referenceId := "a random ref"
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -184,7 +184,7 @@ func TestViewTransactionTimeLine(t *testing.T) {
 
 func TestTransactionTotals(t *testing.T) {
 	t.Run("transaction totals", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -201,7 +201,7 @@ func TestTransactionTotals(t *testing.T) {
 
 func TestExportTransactions(t *testing.T) {
 	t.Run("export transactions", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
@@ -225,7 +225,7 @@ func TestPartialDebit(t *testing.T) {
 	}
 
 	t.Run("partial debit", func(t *testing.T) {
-		client, err := NewClient(apiKey)
+		client, err := NewClient(ApiKey)
 		if err != nil {
 			t.Errorf("cannot initialize client %s", err)
 		}
