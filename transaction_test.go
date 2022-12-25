@@ -59,3 +59,20 @@ func TestVerifyTransaction(t *testing.T) {
 		fmt.Println(string(data))
 	})
 }
+
+func TestListTransaction(t *testing.T) {
+	t.Run("list transaction", func(t *testing.T) {
+		client, err := NewClient(apiKey)
+		if err != nil {
+			t.Errorf("cannot initialize client %s", err)
+		}
+
+		listTrnx, err := client.ListTransactions()
+		if err != nil {
+			t.Error("cannot list transaction")
+		}
+
+		data, _ := json.MarshalIndent(listTrnx, "", "    ")
+		fmt.Println(string(data))
+	})
+}
