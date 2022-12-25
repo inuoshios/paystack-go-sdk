@@ -49,3 +49,15 @@ func (c *Config) VerifyTransaction(trnxReference string) (Response, error) {
 	_ = json.Unmarshal(response, &jsonResponse)
 	return jsonResponse, err
 }
+
+func (c *Config) ListTransactions() (Response, error) {
+	path := "/transaction"
+	response, err := c.makeRequest("GET", path, nil)
+	if err != nil {
+		_ = json.Unmarshal(response, &jsonResponse)
+		return jsonResponse, err
+	}
+
+	_ = json.Unmarshal(response, &jsonResponse)
+	return jsonResponse, err
+}
