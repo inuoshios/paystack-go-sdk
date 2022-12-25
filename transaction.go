@@ -9,7 +9,7 @@ var (
 	jsonResponse Response
 )
 
-type InitTrnx struct {
+type TransactionBody struct {
 	Amount            string   `json:"amount,omitempty"`
 	Email             string   `json:"email,omitempty"`
 	Currency          string   `json:"currency,omitempty"`
@@ -25,7 +25,7 @@ type InitTrnx struct {
 	Bearer            string   `json:"bearer,omitempty"`
 }
 
-func (c *Config) InitializeTransaction(trnx *InitTrnx) (Response, error) {
+func (c *Config) InitializeTransaction(trnx *TransactionBody) (Response, error) {
 	path := "/transaction/initialize"
 
 	response, err := c.makeRequest("POST", path, trnx)
