@@ -9,7 +9,7 @@ var (
 	jsonResponse Response
 )
 
-type InitTrnx struct {
+type TransactionBody struct {
 	Amount            string   `json:"amount,omitempty"`
 	Email             string   `json:"email,omitempty"`
 	Currency          string   `json:"currency,omitempty"`
@@ -25,7 +25,7 @@ type InitTrnx struct {
 	Bearer            string   `json:"bearer,omitempty"`
 }
 
-func (c *Config) InitializeTransaction(trnx *InitTrnx) (Response, error) {
+func (c *Config) InitializeTransaction(trnx *TransactionBody) (Response, error) {
 	path := "/transaction/initialize"
 
 	response, err := c.makeRequest("POST", path, trnx)
@@ -40,6 +40,18 @@ func (c *Config) InitializeTransaction(trnx *InitTrnx) (Response, error) {
 
 func (c *Config) VerifyTransaction(trnxReference string) (Response, error) {
 	path := fmt.Sprintf("/transaction/verify/%s", trnxReference)
+	response, err := c.makeRequest("GET", path, nil)
+	if err != nil {
+		_ = json.Unmarshal(response, &jsonResponse)
+		return jsonResponse, err
+	}
+
+	_ = json.Unmarshal(response, &jsonResponse)
+	return jsonResponse, err
+}
+
+func (c *Config) ListTransactions() (Response, error) {
+	path := "/transaction"
 	response, err := c.makeRequest("GET", path, nil)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
