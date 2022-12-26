@@ -1,4 +1,5 @@
 // The Transactions API allows you create and manage payments on your integration
+
 package paystack
 
 import (
@@ -153,11 +154,11 @@ type PartialDebitBody struct {
 // Docs: https://paystack.com/docs/api/#transaction-initialize
 //
 //	client, _ := paystack.NewClient(apiKey)
-//	transaction, err := client.InitializeTransaction(transactionBody struct{})
-func (c *Config) InitializeTransaction(trnx *TransactionBody) (Response, error) {
+//	transaction, err := client.InitializeTransaction(body struct{})
+func (c *Config) InitializeTransaction(body *TransactionBody) (Response, error) {
 	path := "/transaction/initialize"
 
-	response, err := c.makeRequest("POST", path, trnx)
+	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
 		return jsonResponse, err
@@ -173,8 +174,8 @@ func (c *Config) InitializeTransaction(trnx *TransactionBody) (Response, error) 
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	transaction, err := client.VerifyTransaction(reference string)
-func (c *Config) VerifyTransaction(trnxReference string) (Response, error) {
-	path := fmt.Sprintf("/transaction/verify/%s", trnxReference)
+func (c *Config) VerifyTransaction(reference string) (Response, error) {
+	path := fmt.Sprintf("/transaction/verify/%s", reference)
 	response, err := c.makeRequest("GET", path, nil)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
