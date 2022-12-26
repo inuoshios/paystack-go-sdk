@@ -22,7 +22,7 @@ type CreateCustomerBody struct {
 
 	// Metadata: A set of key/value pairs that you can attach to the customer.
 	//It can be used to store additional information in a structured format.
-	Metadata map[string]any
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
 type UpdateCustomerBody struct {
@@ -37,7 +37,7 @@ type UpdateCustomerBody struct {
 
 	// Metadata: A set of key/value pairs that you can attach to the customer.
 	//It can be used to store additional information in a structured format.
-	Metadata map[string]any
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
 type ValidateCustomerBody struct {
@@ -158,7 +158,7 @@ func (c *Config) FetchCustomer(emailOrCode string) (Response, error) {
 func (c *Config) UpdateCustomer(code string, body *UpdateCustomerBody) (Response, error) {
 	path := fmt.Sprintf("/customer/%s", code)
 
-	response, err := c.makeRequest("POST", path, body)
+	response, err := c.makeRequest("PUT", path, body)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
 		return jsonResponse, err
