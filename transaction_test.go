@@ -217,7 +217,7 @@ func TestExportTransactions(t *testing.T) {
 }
 
 func TestPartialDebit(t *testing.T) {
-	testCase := &PartialDebit{
+	testCase := &PartialDebitBody{
 		AuthorizationCode: "random",
 		Currency:          "NGN",
 		Amount:            "20",
