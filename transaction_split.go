@@ -1,5 +1,6 @@
 // The Transaction Splits API enables merchants split the
 // settlement for a transaction across their payout account, and one or more Subaccounts.
+
 package paystack
 
 import (
@@ -98,9 +99,9 @@ func (c *Config) ListAndSearchSplits() (Response, error) {
 // Docs: https://paystack.com/docs/api/#split-fetch
 //
 //	client, _ := paystack.NewClient(apiKey)
-//	auth, err := client.FetchSplit(query string)
-func (c *Config) FetchSplit(query string) (Response, error) {
-	path := fmt.Sprintf("/split/%s", query)
+//	auth, err := client.FetchSplit(id string)
+func (c *Config) FetchSplit(id string) (Response, error) {
+	path := fmt.Sprintf("/split/%s", id)
 	response, err := c.makeRequest("GET", path, nil)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
@@ -116,9 +117,9 @@ func (c *Config) FetchSplit(query string) (Response, error) {
 // Docs: https://paystack.com/docs/api/#split-update
 //
 //	client, _ := paystack.NewClient(apiKey)
-//	auth, err := client.UpdateSplit(body struct{}, query string)
-func (c *Config) UpdateSplit(body *UpdateSplitBody, query string) (Response, error) {
-	path := fmt.Sprintf("/split/%s", query)
+//	auth, err := client.UpdateSplit(body struct{}, id string)
+func (c *Config) UpdateSplit(body *UpdateSplitBody, id string) (Response, error) {
+	path := fmt.Sprintf("/split/%s", id)
 	response, err := c.makeRequest("PUT", path, body)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
@@ -134,9 +135,9 @@ func (c *Config) UpdateSplit(body *UpdateSplitBody, query string) (Response, err
 // Docs: https://paystack.com/docs/api/#split-add-subaccount
 //
 //	client, _ := paystack.NewClient(apiKey)
-//	auth, err := client.AddAndUpdateSplitSubaccount(body struct{}, query string)
-func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccountBody, query string) (Response, error) {
-	path := fmt.Sprintf("/split/%s/subaccount/add", query)
+//	auth, err := client.AddAndUpdateSplitSubaccount(body struct{}, id string)
+func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccountBody, id string) (Response, error) {
+	path := fmt.Sprintf("/split/%s/subaccount/add", id)
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
@@ -151,9 +152,9 @@ func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccountBo
 // Docs: https://paystack.com/docs/api/#split-remove-subaccount
 //
 //	client, _ := paystack.NewClient(apiKey)
-//	auth, err := client.RemoveSubAccountFromSplit(body struct{}, query string)
-func (c *Config) RemoveSubAccountFromSplit(body *RemoveSubAccountFromSplitBody, query string) (Response, error) {
-	path := fmt.Sprintf("/split/%s/subaccount/remove", query)
+//	auth, err := client.RemoveSubAccountFromSplit(body struct{}, id string)
+func (c *Config) RemoveSubAccountFromSplit(body *RemoveSubAccountFromSplitBody, id string) (Response, error) {
+	path := fmt.Sprintf("/split/%s/subaccount/remove", id)
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
 		_ = json.Unmarshal(response, &jsonResponse)
