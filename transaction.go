@@ -127,7 +127,7 @@ type CheckAuthorizationBody struct {
 	Currency string `json:"currency,omitempty"`
 }
 
-type PartialDebit struct {
+type PartialDebitBody struct {
 	// Authorization Code
 	AuthorizationCode string `json:"authorization_code"`
 
@@ -325,7 +325,7 @@ func (c *Config) ExportTransactions() (Response, error) {
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.PartialDebit(body struct{}})
-func (c *Config) PartialDebit(body *PartialDebit) (Response, error) {
+func (c *Config) PartialDebit(body *PartialDebitBody) (Response, error) {
 	path := "/transaction/partial_debit"
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {

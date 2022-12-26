@@ -7,7 +7,7 @@ import (
 )
 
 func TestCreateSplit(t *testing.T) {
-	testCase := &CreateSplit{}
+	testCase := &CreateSplitBody{}
 
 	t.Run("create split", func(t *testing.T) {
 		client, err := NewClient(ApiKey)

@@ -7,7 +7,7 @@ import (
 	"fmt"
 )
 
-type CreateSplit struct {
+type CreateSplitBody struct {
 	// Name of the transaction split
 	Name string `json:"name"`
 
@@ -29,7 +29,7 @@ type CreateSplit struct {
 	BearerSubAccount string `json:"bearer_subaccount"`
 }
 
-type UpdateSplit struct {
+type UpdateSplitBody struct {
 	// Name of the transaction split
 	Name string `json:"name"`
 
@@ -44,7 +44,7 @@ type UpdateSplit struct {
 	BearerSubAccount string `json:"bearer_subaccount"`
 }
 
-type AddAndUpdateSplitSubaccount struct {
+type AddAndUpdateSplitSubaccountBody struct {
 	// Subaccount: This is the sub account code
 	Subaccount string `json:"subaccount"`
 
@@ -52,7 +52,7 @@ type AddAndUpdateSplitSubaccount struct {
 	Share uint64 `json:"share"`
 }
 
-type RemoveSubAccountFromSplit struct {
+type RemoveSubAccountFromSplitBody struct {
 	// Subaccount This is the sub account code
 	Subaccount string `json:"subaccount"`
 }
@@ -63,7 +63,7 @@ type RemoveSubAccountFromSplit struct {
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.CreateSplit(body struct{}})
-func (c *Config) CreateSplit(body *CreateSplit) (Response, error) {
+func (c *Config) CreateSplit(body *CreateSplitBody) (Response, error) {
 	path := "/split"
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
@@ -117,7 +117,7 @@ func (c *Config) FetchSplit(query string) (Response, error) {
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.UpdateSplit(body struct{}, query string)
-func (c *Config) UpdateSplit(body *UpdateSplit, query string) (Response, error) {
+func (c *Config) UpdateSplit(body *UpdateSplitBody, query string) (Response, error) {
 	path := fmt.Sprintf("/split/%s", query)
 	response, err := c.makeRequest("PUT", path, body)
 	if err != nil {
@@ -135,7 +135,7 @@ func (c *Config) UpdateSplit(body *UpdateSplit, query string) (Response, error) 
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.AddAndUpdateSplitSubaccount(body struct{}, query string)
-func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccount, query string) (Response, error) {
+func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccountBody, query string) (Response, error) {
 	path := fmt.Sprintf("/split/%s/subaccount/add", query)
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
@@ -152,7 +152,7 @@ func (c *Config) AddAndUpdateSplitSubaccount(body *AddAndUpdateSplitSubaccount, 
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.RemoveSubAccountFromSplit(body struct{}, query string)
-func (c *Config) RemoveSubAccountFromSplit(body *RemoveSubAccountFromSplit, query string) (Response, error) {
+func (c *Config) RemoveSubAccountFromSplit(body *RemoveSubAccountFromSplitBody, query string) (Response, error) {
 	path := fmt.Sprintf("/split/%s/subaccount/remove", query)
 	response, err := c.makeRequest("POST", path, body)
 	if err != nil {
