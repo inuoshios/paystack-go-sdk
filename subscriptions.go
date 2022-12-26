@@ -56,7 +56,7 @@ func (c *Config) CreateSubscription(body *CreateSubscriptionBody) (Response, err
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.ListSubscriptions()
 func (c *Config) ListSubscriptions() (Response, error) {
-	path := "/plan"
+	path := "/subscription"
 
 	response, err := c.makeRequest("GET", path, nil)
 	if err != nil {
