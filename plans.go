@@ -96,7 +96,7 @@ func (c *Config) FetchPlan(codeOrID string) (Response, error) {
 //
 //	client, _ := paystack.NewClient(apiKey)
 //	auth, err := client.UpdatePlan(codeOrID string, body structs{})
-func (c *Config) UpdatePlan(codeOrID string, body Plan) (Response, error) {
+func (c *Config) UpdatePlan(codeOrID string, body *Plan) (Response, error) {
 	path := fmt.Sprintf("/plan/%s", codeOrID)
 
 	response, err := c.makeRequest("PUT", path, body)
