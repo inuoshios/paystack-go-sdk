@@ -7,7 +7,7 @@
 To install this package, use the command below
 
 ```sh
-go get github.com/rxxcc/paystack-go-sdk
+go get github.com/inuoshios/paystack-go-sdk
 ```
 
 ## Usage/Examples
@@ -15,7 +15,7 @@ go get github.com/rxxcc/paystack-go-sdk
 ### Import the package
 
 ```go
-import "github.com/rxxcc/paystack-go-sdk"
+import "github.com/inuoshios/paystack-go-sdk"
 ```
 
 _Get your keys from your Paystack dashboard and add it into your environment variables_
@@ -26,7 +26,7 @@ _Get your keys from your Paystack dashboard and add it into your environment var
 package main
 
 import (
-    paystack "github.com/rxxcc/paystack-go-sdk"
+    paystack "github.com/inuoshios/paystack-go-sdk"
 )
 
 var (
